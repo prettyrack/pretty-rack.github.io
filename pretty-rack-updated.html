@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pretty Rack ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--page:#fff;--paper:#fff;--stage:#f5f4f2;--accent:#171717;--accent-soft:#e9e7e5;--text:#242321;--muted:#817c77;--line:#e9e7e4;--slot:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--text);font-family:'DM Sans',sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+header{padding:17px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);z-index:10}
+.logo{font:700 30px 'Playfair Display';letter-spacing:-1px}.logo span{color:var(--accent)}
+nav{display:flex;gap:22px;font-size:12px}nav a{text-decoration:none;color:var(--text)}nav a:hover{opacity:.6}
+.btn{background:var(--accent);color:white;border:1px solid var(--accent);padding:12px 20px;border-radius:30px;font-size:12px;transition:.2s}.btn:hover{opacity:.78;transform:translateY(-1px)}
+.light{background:var(--paper);color:var(--text);border:1px solid var(--line)}
+.hero{padding:70px 7%;display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.hero h1{font:700 clamp(48px,7vw,88px)/.98 'Playfair Display';letter-spacing:-3px;margin:18px 0}.hero h1 em{color:var(--accent);font-style:normal}
+.hero p{line-height:1.8;color:var(--muted);max-width:430px}.hero-art{background:var(--stage);height:350px;border-radius:48% 48% 15px 15px;display:grid;place-items:center;position:relative}
+.hero-art span{font:700 150px 'Playfair Display';color:var(--accent-soft)}.sticker{position:absolute;background:white;padding:15px;border-radius:50%;font-size:12px;top:25px;right:20px;transform:rotate(10deg)}
+section{padding:52px 6%}.kicker{font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase}
+h2{font:600 42px 'Playfair Display';margin:10px 0}.muted{color:var(--muted);font-size:14px}
+.builder{display:grid;grid-template-columns:290px minmax(0,1fr);gap:22px;margin-top:28px;align-items:start}
+.panel,.stage,.card,.saved{background:var(--paper);border:1px solid var(--line);border-radius:20px}
+.panel{padding:24px;position:sticky;top:90px}.panel h3{font:600 22px 'Playfair Display';margin:0 0 12px}
+label{display:block;font-size:13px;font-weight:700;color:var(--text);margin:17px 0 8px}
+select,input[type=text],input[type=file]{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--page);color:var(--text);font-size:13px}
+input[type=color]{width:100%;height:43px;padding:4px;border:1px solid var(--line);border-radius:10px;background:white;cursor:pointer}
+.stage{background:var(--stage);padding:24px;min-height:610px;transition:background .2s}
+.stage-head{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;letter-spacing:2px;color:var(--muted);margin-bottom:20px}
+.outfit-board{display:grid;grid-template-columns:1fr 1fr;gap:15px;max-width:760px;margin:0 auto}
+.outfit-card{min-height:170px;background:var(--slot);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;align-items:center;gap:12px;padding:12px;box-shadow:0 4px 16px rgba(0,0,0,.035)}
+.outfit-card.wide{grid-column:span 2}.outfit-card .item-image{width:48%;height:165px;object-fit:contain;flex-shrink:0}.outfit-card.wide .item-image{width:52%;height:190px}
+.outfit-card .item-emoji{width:48%;font-size:66px;text-align:center;flex-shrink:0}
+.item-copy{min-width:0;display:flex;flex-direction:column;gap:7px}.item-copy strong{font:600 18px 'Playfair Display';overflow-wrap:anywhere}.item-copy small{font-size:11px;color:var(--muted);letter-spacing:.5px}
+.outfit-card.empty{justify-content:center;text-align:center;border:1px dashed #c9c5c1;background:rgba(255,255,255,.65);color:var(--muted);flex-direction:column;gap:6px}.empty-emoji{font-size:32px}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0}.tip{font-size:12px;color:var(--muted);text-align:center}
+.upload{padding:25px;background:var(--paper);border:1px dashed #bdb8b3;border-radius:18px;margin-top:22px}
+.upload p{font-size:13px;color:var(--muted);line-height:1.7}.upload-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.wardrobe{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:17px;margin-top:22px;align-items:start}
+.card{padding:13px;overflow:hidden;box-shadow:0 5px 18px rgba(0,0,0,.035)}
+.visual{height:220px;background:var(--stage);border-radius:13px;display:grid;place-items:center;overflow:hidden}
+.visual img{width:100%;height:100%;object-fit:contain}.card h4{font:600 19px 'Playfair Display';margin:13px 2px 5px}.card p{color:var(--muted);font-size:12px;text-transform:capitalize;margin:0 2px 12px}
+.card button{width:100%;padding:10px;border-radius:22px;border:1px solid var(--line);background:white;color:var(--text);font-size:12px;margin-top:7px}
+.saved-grid{columns:3 230px;column-gap:17px;margin-top:22px}.saved{display:inline-block;width:100%;padding:13px;margin:0 0 17px;break-inside:avoid;box-shadow:0 5px 18px rgba(0,0,0,.04)}
+.saved-preview{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--stage);padding:9px;border-radius:13px;margin-bottom:12px}
+.saved-preview .preview-piece{height:115px;background:white;border-radius:9px;display:grid;place-items:center;overflow:hidden}
+.saved-preview img{width:100%;height:100%;object-fit:contain}.saved-preview .preview-emoji{font-size:38px}
+.saved h3{font:600 20px 'Playfair Display';margin:9px 2px}.saved p{font-size:12px;color:var(--muted);line-height:1.6;margin:5px 2px 12px}
+.saved-actions{display:flex;gap:7px}.saved-actions button{flex:1;padding:9px 7px;border-radius:20px;font-size:11px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.feature{padding:22px;background:var(--paper);border:1px solid var(--line);border-radius:16px}
+.feature h3{font:600 20px 'Playfair Display'}.feature p{font-size:13px;color:var(--muted);line-height:1.7}
+.empty-message{border:1px dashed var(--line);border-radius:15px;padding:25px;color:var(--muted);text-align:center;column-span:all}
+footer{padding:30px 6%;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;color:var(--muted);font-size:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#171717;color:white;padding:13px 20px;border-radius:30px;font-size:12px;display:none;z-index:30;max-width:90%;text-align:center}
+@media(max-width:850px){nav{display:none}.hero,.builder{grid-template-columns:1fr}.hero-art{height:250px}.panel{position:static}.features{grid-template-columns:1fr}}
+@media(max-width:520px){section{padding:38px 5%}.outfit-board{gap:8px}.outfit-card{padding:8px;gap:6px;min-height:140px}.outfit-card .item-image{height:130px}.outfit-card.wide .item-image{height:150px}.item-copy strong{font-size:14px}.item-copy small{font-size:9px}.outfit-card .item-emoji{font-size:45px}.stage{padding:13px}.upload-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#" style="text-decoration:none;color:inherit">pretty <span>rack</span></a>
+  <nav><a href="#builder">OUTFIT MAKER</a><a href="#closet">MY CLOSET</a><a href="#saved">SAVED OUTFITS</a><a href="#customize">CUSTOMIZE</a></nav>
+  <button class="btn" onclick="go('builder')">Style me ↗</button>
+</header>
+
+<div class="hero">
+  <div><div class="kicker">Your closet, reimagined</div><h1>Wear what you<br><em>already love.</em></h1>
+  <p>Your closet, your creativity. Mix, match, and build outfit inspiration boards with the pieces you already own.</p>
+  <button class="btn" onclick="go('builder')">Let's style ♡</button></div>
+  <div class="hero-art"><span>pr</span><div class="sticker">style sustainably ✦</div></div>
+</div>
+
+<section id="builder">
+  <div class="kicker">The fun part</div><h2>Outfit maker.</h2><p class="muted">Create a Pinterest-inspired outfit board. Your pieces, your aesthetic.</p>
+  <div class="builder">
+    <aside class="panel">
+      <h3>Style your look</h3>
+      <label for="category">Category</label><select id="category"><option value="tops">Tops</option><option value="bottoms">Bottoms</option><option value="shoes">Shoes</option><option value="accessories">Accessories</option></select>
+      <label for="piece">Clothing item</label><select id="piece"></select>
+      <label for="palette">Color palette</label><select id="palette"><option>Soft neutrals</option><option>Monochrome</option><option>Blush pink</option><option>Chocolate brown</option><option>Baby blue</option><option>Sage green</option><option>Black & white</option></select>
+      <label for="occasion">Occasion</label><select id="occasion"><option>Everyday</option><option>School</option><option>Going out</option><option>Cozy day</option><option>Special occasion</option></select>
+      <label for="lookName">Outfit name</label><input type="text" id="lookName" placeholder="Sunday café ♡">
+      <div class="actions"><button class="btn" onclick="addPiece()">Add to outfit +</button><button class="btn light" onclick="randomOutfit()">Surprise me ✧</button></div>
+    </aside>
+    <div class="stage" id="outfitStage">
+      <div class="stage-head"><span>YOUR OUTFIT BOARD</span><span>PRETTY RACK ♡</span></div>
+      <div class="outfit-board">
+        <div class="outfit-card empty wide" id="slot-tops"><span class="empty-emoji">👚</span><span>Your top</span></div>
+        <div class="outfit-card empty" id="slot-bottoms"><span class="empty-emoji">👖</span><span>Your bottoms</span></div>
+        <div class="outfit-card empty" id="slot-shoes"><span class="empty-emoji">👢</span><span>Your shoes</span></div>
+        <div class="outfit-card empty" id="slot-accessories"><span class="empty-emoji">🎀</span><span>Accessory 1</span></div>
+        <div class="outfit-card empty" id="slot-extra"><span class="empty-emoji">👜</span><span>Accessory 2</span></div>
+      </div>
+      <div class="actions"><button class="btn light" onclick="clearOutfit()">Clear board</button><button class="btn" onclick="saveOutfit()">Save outfit ♡</button></div>
+      <div class="tip">Tip: upload your own clothing photos in My Closet to make your board personal.</div>
+    </div>
+  </div>
+</section>
+
+<section id="closet">
+  <div class="kicker">Your personal wardrobe</div><h2>My closet.</h2><p class="muted">Import clothing photos, remove their backgrounds, and add them to your outfit board.</p>
+  <div class="upload">
+    <h3 style="font:600 23px 'Playfair Display';margin-top:0">Add a clothing item ♡</h3>
+    <p>Choose a photo, name the item, and decide whether to remove its background. Background removal runs in your browser using an open-source AI model. The first use may take a little while to load.</p>
+    <label for="photo">Import clothing image</label><input type="file" id="photo" accept="image/*">
+    <div class="upload-row"><div><label for="customName">Item name</label><input type="text" id="customName" placeholder="e.g. Cream polka-dot top"></div>
+    <div><label for="customCat">Category</label><select id="customCat"><option value="tops">Top</option><option value="bottoms">Bottom</option><option value="shoes">Shoes</option><option value="accessories">Accessory</option></select></div></div>
+    <label style="display:flex;align-items:center;gap:9px;font-weight:500"><input type="checkbox" id="removeBg" checked style="width:auto"> Automatically remove image background</label>
+    <div class="actions" style="justify-content:flex-start"><button class="btn" id="uploadButton" onclick="uploadItem()">Add to my closet ♡</button></div>
+    <p id="removeStatus" aria-live="polite">You can turn off automatic background removal if your photo already has a transparent background.</p>
+  </div>
+  <div class="wardrobe" id="wardrobe"></div>
+</section>
+
+<section id="saved">
+  <div class="kicker">Your personal lookbook</div><h2>Saved outfits.</h2><p class="muted">Your saved looks, displayed as a Pinterest-style inspiration wall.</p>
+  <button class="btn light" onclick="clearSaved()">Clear saved outfits</button>
+  <div class="saved-grid" id="savedGrid"></div>
+</section>
+
+<section id="customize">
+  <div class="kicker">Make it yours</div><h2>Customize your space.</h2><p class="muted">Pretty Rack starts with a clean white look and black accents. Change the colors whenever you want.</p>
+  <div class="panel" style="max-width:600px;margin-top:20px">
+    <label for="pageColor">Website background</label><input type="color" id="pageColor" value="#ffffff">
+    <label for="accentColor">Accent color (buttons and highlights)</label><input type="color" id="accentColor" value="#171717">
+    <label for="stageColor">Outfit board background</label><input type="color" id="stageColor" value="#f5f4f2">
+    <div class="actions"><button class="btn" onclick="applyTheme()">Apply colors</button><button class="btn light" onclick="resetTheme()">Reset to white + black</button></div>
+  </div>
+</section>
+
+<section id="about"><div class="kicker">A little more than outfits</div><h2>Style with a purpose.</h2>
+  <div class="features"><div class="feature"><h3>♻ Shop your closet</h3><p>Rediscover clothes you already own and make the most of your wardrobe.</p></div>
+  <div class="feature"><h3>✧ Try a new you</h3><p>Experiment with colors, combinations, and aesthetics.</p></div>
+  <div class="feature"><h3>♡ Feel like yourself</h3><p>Build outfits that make you feel confident and creative.</p></div></div>
+</section>
+<footer><div class="logo">pretty <span>rack</span></div><span>Less shopping. More styling. ♡</span><span>Made with love.</span></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const clothes={
+ tops:[["Baby tee","👕"],["Cardigan","🧶"],["Blouse","👚"],["Tank top","🎽"],["Sweater","🧥"],["Button-up","👔"],["Hoodie","🧥"]],
+ bottoms:[["Straight-leg jeans","👖"],["Pleated skirt","👗"],["Wide-leg pants","👖"],["Cargo pants","🩳"],["Mini skirt","👗"],["Shorts","🩳"]],
+ shoes:[["Mary Janes","🥿"],["Sneakers","👟"],["Loafers","👞"],["Ballet flats","🥿"],["Platform shoes","👠"],["Sandals","🩴"]],
+ accessories:[["Bow","🎀"],["Gold jewelry","💍"],["Hair clip","🪮"],["Sunglasses","🕶️"],["Scarf","🧣"],["Bag","👜"]]
+};
+const slotNames={tops:"Your top",bottoms:"Your bottoms",shoes:"Your shoes",accessories:"Accessory 1",extra:"Accessory 2"};
+const placeholders={tops:"👚",bottoms:"👖",shoes:"👢",accessories:"🎀",extra:"👜"};
+let closetItems=readStore("prettyRackCloset",[]);
+let outfit={tops:null,bottoms:null,shoes:null,accessories:null,extra:null};
+function readStore(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}}
+function writeStore(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){toast("Storage is full. Try using smaller photos.");return false}}
+function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function toast(message){const t=document.getElementById("toast");t.textContent=message;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2800)}
+function updatePieces(){
+ const cat=document.getElementById("category").value,select=document.getElementById("piece");select.innerHTML="";
+ clothes[cat].forEach((item,i)=>{const o=document.createElement("option");o.value="default-"+i;o.textContent=item[0];select.appendChild(o)});
+ closetItems.filter(x=>x.category===cat).forEach(item=>{const o=document.createElement("option");o.value="custom-"+item.id;o.textContent="♡ "+item.name;select.appendChild(o)});
+}
+document.getElementById("category").addEventListener("change",updatePieces);
+function renderSlot(key,item){
+ const slot=document.getElementById("slot-"+key);slot.innerHTML="";
+ if(!item){slot.className="outfit-card empty"+(key==="tops"?" wide":"");const emoji=document.createElement("span");emoji.className="empty-emoji";emoji.textContent=placeholders[key];const txt=document.createElement("span");txt.textContent=slotNames[key];slot.append(emoji,txt);return}
+ slot.className="outfit-card"+(key==="tops"?" wide":"");
+ if(item.image){const img=document.createElement("img");img.className="item-image";img.src=item.image;img.alt=item.name;slot.appendChild(img)}
+ else{const emoji=document.createElement("div");emoji.className="item-emoji";emoji.textContent=item.emoji||"♡";slot.appendChild(emoji)}
+ const copy=document.createElement("div");copy.className="item-copy";const name=document.createElement("strong");name.textContent=item.name;const type=document.createElement("small");type.textContent=key==="extra"?"ACCESSORY":key.toUpperCase();copy.append(name,type);slot.appendChild(copy);
+}
+function putInOutfit(item,category){let key=category;if(category==="accessories")key=outfit.accessories?"extra":"accessories";outfit[key]={...item};renderSlot(key,outfit[key])}
+function addPiece(){
+ const cat=document.getElementById("category").value,value=document.getElementById("piece").value;let item;
+ if(value.startsWith("custom-"))item=closetItems.find(x=>x.id===Number(value.slice(7)));
+ else{const index=Number(value.replace("default-",""));if(clothes[cat][index])item={name:clothes[cat][index][0],emoji:clothes[cat][index][1]}}
+ if(item){putInOutfit(item,cat);toast(item.name+" added to your board ♡")}
+}
+function randomOutfit(){Object.keys(clothes).forEach(cat=>{const chosen=clothes[cat][Math.floor(Math.random()*clothes[cat].length)];putInOutfit({name:chosen[0],emoji:chosen[1]},cat)});toast("Your surprise outfit is ready ✧")}
+function clearOutfit(){Object.keys(outfit).forEach(key=>{outfit[key]=null;renderSlot(key,null)});toast("Fresh start ♡")}
+function saveOutfit(){
+ if(!Object.values(outfit).some(Boolean)){toast("Add at least one item before saving!");return}
+ const saved=readStore("prettyRackLooks",[]);saved.unshift({id:Date.now(),name:document.getElementById("lookName").value.trim()||"My pretty look",occasion:document.getElementById("occasion").value,palette:document.getElementById("palette").value,pieces:JSON.parse(JSON.stringify(outfit))});
+ if(writeStore("prettyRackLooks",saved)){renderSaved();toast("Outfit saved to your lookbook ♡")}
+}
+async function uploadItem(){
+ const file=document.getElementById("photo").files[0],name=document.getElementById("customName").value.trim(),category=document.getElementById("customCat").value;
+ if(!file||!name){toast("Choose a picture and name your item!");return}
+ if(!file.type.startsWith("image/")){toast("Please choose an image file.");return}
+ const button=document.getElementById("uploadButton"),status=document.getElementById("removeStatus");button.disabled=true;
+ try{
+  let finalFile=file;
+  if(document.getElementById("removeBg").checked){
+   status.textContent="Loading background remover… The first use downloads the AI model, so please keep this tab open.";
+   const module=await import("https://esm.sh/@imgly/background-removal@1.5.5");
+   status.textContent="Removing the background… this can take a little while.";
+   const result=await module.removeBackground(file,{output:{format:"image/png"}});
+   finalFile=result;
+  }
+  const data=await fileToDataURL(finalFile);
+  const item={id:Date.now(),name,category,image:data};
+  closetItems.unshift(item);
+  if(!writeStore("prettyRackCloset",closetItems)){closetItems.shift();return}
+  renderCloset();updatePieces();document.getElementById("photo").value="";document.getElementById("customName").value="";
+  status.textContent="Your item is in your closet! ♡";toast("Added to your closet ♡");
+ }catch(error){console.error(error);status.textContent="Background removal could not finish. Check your connection and try again, or uncheck automatic removal to upload the original.";toast("Couldn't process that image.")}
+ finally{button.disabled=false}
+}
+function fileToDataURL(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)})}
+function renderCloset(){
+ const box=document.getElementById("wardrobe");box.innerHTML="";
+ if(!closetItems.length){const empty=document.createElement("div");empty.className="empty-message";empty.textContent="Your closet is waiting for its first piece ♡";box.appendChild(empty);return}
+ closetItems.forEach(item=>{
+  const card=document.createElement("article");card.className="card";const visual=document.createElement("div");visual.className="visual";const img=document.createElement("img");img.src=item.image;img.alt=item.name;visual.appendChild(img);
+  const h=document.createElement("h4");h.textContent=item.name;const p=document.createElement("p");p.textContent=item.category;
+  const add=document.createElement("button");add.textContent="Add to outfit";add.onclick=()=>{putInOutfit(item,item.category);toast(item.name+" added ♡")};
+  const remove=document.createElement("button");remove.textContent="Remove item";remove.onclick=()=>deleteClosetItem(item.id);
+  card.append(visual,h,p,add,remove);box.appendChild(card)
+ })
+}
+function deleteClosetItem(id){closetItems=closetItems.filter(x=>x.id!==id);writeStore("prettyRackCloset",closetItems);renderCloset();updatePieces();toast("Item removed")}
+function renderSaved(){
+ const box=document.getElementById("savedGrid");box.innerHTML="";const saved=readStore("prettyRackLooks",[]);
+ if(!saved.length){const empty=document.createElement("div");empty.className="empty-message";empty.textContent="No saved outfits yet. Make your first look! ♡";box.appendChild(empty);return}
+ saved.forEach((look,index)=>{
+  const card=document.createElement("article");card.className="saved";const preview=document.createElement("div");preview.className="saved-preview";
+  Object.entries(look.pieces||{}).filter(([k,v])=>v).forEach(([key,item])=>{const tile=document.createElement("div");tile.className="preview-piece";if(item.image){const img=document.createElement("img");img.src=item.image;img.alt=item.name;tile.appendChild(img)}else{const em=document.createElement("span");em.className="preview-emoji";em.textContent=item.emoji||"♡";tile.appendChild(em)}preview.appendChild(tile)});
+  if(!preview.children.length){const t=document.createElement("span");t.textContent="♡";preview.appendChild(t)}
+  const title=document.createElement("h3");title.textContent=look.name;const meta=document.createElement("p");meta.textContent=(look.occasion||"")+(look.palette?" · "+look.palette:"");
+  const names=document.createElement("p");names.textContent=Object.values(look.pieces||{}).filter(Boolean).map(x=>x.name).join(" · ");
+  const actions=document.createElement("div");actions.className="saved-actions";const load=document.createElement("button");load.className="btn light";load.textContent="Load look";load.onclick=()=>loadLook(index);const del=document.createElement("button");del.className="btn light";del.textContent="Delete";del.onclick=()=>deleteLook(index);actions.append(load,del);card.append(preview,title,meta,names,actions);box.appendChild(card)
+ })
+}
+function loadLook(index){
+ const look=readStore("prettyRackLooks",[])[index];if(!look)return;
+ Object.keys(outfit).forEach(key=>{outfit[key]=look.pieces?.[key]||null;renderSlot(key,outfit[key])});
+ document.getElementById("lookName").value=look.name||"";document.getElementById("occasion").value=look.occasion||"Everyday";document.getElementById("palette").value=look.palette||"Soft neutrals";go("builder");toast("Outfit loaded ♡")
+}
+function deleteLook(index){const saved=readStore("prettyRackLooks",[]);saved.splice(index,1);writeStore("prettyRackLooks",saved);renderSaved()}
+function clearSaved(){if(confirm("Delete all your saved outfits?")){localStorage.removeItem("prettyRackLooks");renderSaved();toast("Lookbook cleared")}}
+function applyTheme(){
+ const page=document.getElementById("pageColor").value,accent=document.getElementById("accentColor").value,stage=document.getElementById("stageColor").value;
+ document.documentElement.style.setProperty("--page",page);document.documentElement.style.setProperty("--paper",page);document.documentElement.style.setProperty("--accent",accent);document.documentElement.style.setProperty("--accent-soft",accent+"22");document.documentElement.style.setProperty("--stage",stage);
+ writeStore("prettyRackTheme",{page,accent,stage});toast("Your Pretty Rack theme has been updated ♡")
+}
+function resetTheme(){document.getElementById("pageColor").value="#ffffff";document.getElementById("accentColor").value="#171717";document.getElementById("stageColor").value="#f5f4f2";applyTheme()}
+function loadTheme(){const t=readStore("prettyRackTheme",null);if(t){document.getElementById("pageColor").value=t.page;document.getElementById("accentColor").value=t.accent;document.getElementById("stageColor").value=t.stage;applyTheme()}}
+updatePieces();Object.keys(outfit).forEach(k=>renderSlot(k,null));renderCloset();renderSaved();loadTheme();
+</script>
+</body>
+</html>
